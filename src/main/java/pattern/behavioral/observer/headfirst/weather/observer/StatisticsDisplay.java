@@ -8,7 +8,7 @@ public class StatisticsDisplay implements WeatherObserver, DisplayElement {
     private float minTemperature = Float.MAX_VALUE;
     private float temperatureSum = 0f;
     private int numberReadings;
-    private WeatherData weatherData;
+    private final WeatherData weatherData;
 
     public StatisticsDisplay(WeatherData weatherData) {
         this.weatherData = weatherData;
@@ -16,16 +16,18 @@ public class StatisticsDisplay implements WeatherObserver, DisplayElement {
     }
 
     @Override
-    public void update(float temperature, float humidity, float pressure) {
-        temperatureSum += temperature;
+    public void update() {
+        float currentTemperature = this.weatherData.getTemperature();
+
+        temperatureSum += currentTemperature;
         numberReadings++;
 
-        if (temperature > maxTemperature) {
-            maxTemperature = temperature;
+        if (currentTemperature > maxTemperature) {
+            maxTemperature = currentTemperature;
         }
 
-        if (temperature < minTemperature) {
-            minTemperature = temperature;
+        if (currentTemperature < minTemperature) {
+            minTemperature = currentTemperature;
         }
 
         display();

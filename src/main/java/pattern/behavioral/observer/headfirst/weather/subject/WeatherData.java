@@ -28,7 +28,7 @@ public class WeatherData implements WeatherSubject {
 
     @Override
     public void notifyObservers() {
-        this.observers.forEach(weatherObserver -> weatherObserver.update(this.temperature, this.humidity, this.pressure));
+        this.observers.forEach(WeatherObserver::update);
     }
 
     public void measurementsChanged() {
