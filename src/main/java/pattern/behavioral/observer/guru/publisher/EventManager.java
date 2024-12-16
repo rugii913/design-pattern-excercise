@@ -5,31 +5,23 @@ import pattern.behavioral.observer.guru.listeners.EventListener;
 import java.io.File;
 import java.util.*;
 
-// basic publisher
 public class EventManager {
 
-    Map<String, List<EventListener>> listeners = new HashMap<>();
+    Map<String, List<EventListener>> eventListenerListMap = new HashMap<>();
 
-    public EventManager(String... operations) {
-        for (String operation : operations) {
-            this.listeners.put(operation, new ArrayList<>());
-        }
+    public EventManager(String... eventTypes) {
+        Arrays.stream(eventTypes).forEach(eventType -> this.eventListenerListMap.put(eventType, new ArrayList<>()));
     }
 
     public void subscribe(String eventType, EventListener listener) {
-        List<EventListener> users = listeners.get(eventType);
-        users.add(listener);
+        eventListenerListMap.get(eventType).add(listener);
     }
 
     public void unsubscribe(String eventType, EventListener listener) {
-        List<EventListener> users = listeners.get(eventType);
-        users.remove(listener);
+        eventListenerListMap.get(eventType).remove(listener);
     }
 
     public void notify(String eventType, File file) {
-        List<EventListener> users = listeners.get(eventType);
-        for (EventListener listener : users) {
-            listener.update(eventType, file);
-        }
+        eventListenerListMap.get(eventType).forEach(listener -> listener.update(eventType, file));
     }
 }
