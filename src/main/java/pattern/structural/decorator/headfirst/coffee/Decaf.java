@@ -2,18 +2,18 @@ package pattern.structural.decorator.headfirst.coffee;
 
 import pattern.structural.decorator.headfirst.Beverage;
 
-public class DarkRoast extends Beverage {
+public class Decaf extends Beverage {
 
-    public DarkRoast() {
-        this.description = "Dark Roast Coffee";
+    public Decaf() {
+        this.description = "Decaf Coffee";
     }
 
     @Override
     public double cost() {
         return switch (this.getSize()) {
-            case TALL -> 0.99;
-            case GRANDE -> 1.19;
-            case VENTI -> 1.39;
+            case TALL -> 1.05;
+            case GRANDE -> 1.15;
+            case VENTI -> 1.35;
         };
     }
 }
